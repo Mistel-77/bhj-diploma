@@ -10,7 +10,7 @@ class User {
    * локальном хранилище.
    * */
   static setCurrent(user) {
-
+    localStorage.user = JSON.stringify(user);
   }
 
   /**
@@ -18,7 +18,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    delete localStorage.user;
   }
 
   /**
@@ -26,7 +26,11 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    if (localStorage.user) {
+      return JSON.parse(localStorage.user);
+    } else {
+      return undefined;
+    }
   }
 
   /**
@@ -34,7 +38,20 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      url: this.HOST + this.URL + '/current',
+      metod: 'GET',
+      responseType: 'json',
+      data: data,
+      callback: ( err, response ) => {
+        if (response.success === 'false') {
+          User.unsetCurrent(response.user);
+        } else {
+          User.setCurrent(response.user);
+        }
+        callback( err, response );
+      }
+    });
   }
 
   /**
@@ -44,7 +61,18 @@ class User {
    * User.setCurrent.
    * */
   static login( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      url: this.HOST + this.URL + '/login',
+      metod: 'POST',
+      responseType: 'json',
+      data: data,
+      callback: ( err, response ) => {
+        if (response.success === 'true') {
+          User.setCurrent(response.user);
+        }
+        callback( err, response );
+      }
+    });
   }
 
   /**
@@ -54,7 +82,18 @@ class User {
    * User.setCurrent.
    * */
   static register( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      url: this.HOST + this.URL + '/register',
+      metod: 'POST',
+      responseType: 'json',
+      data: data,
+      callback: ( err, response ) => {
+        if (response.success === 'true') {
+          User.setCurrent(response.user);
+        }
+        callback( err, response );
+      }
+    });
   }
 
   /**
@@ -62,6 +101,22 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      url: this.HOST + this.URL + '/logout',
+      metod: 'POST',
+      responseType: 'json',
+      data: data,
+      callback: ( err, response ) => {
+        if (response.success === 'true') {
+          User.unsetCurrent(response.user);
+        }
+        callback( err, response );
+      }
+    });
   }
 }
+
+
+
+User.URL = '/user';
+User.HOST =  Entity.HOST;
