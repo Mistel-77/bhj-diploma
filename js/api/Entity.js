@@ -13,7 +13,7 @@ class Entity {
   static list( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL,
-      metod: 'GET';
+      metod: 'GET',
       responseType: 'json',
       data: data,
       callback: ( err, response ) => {
@@ -31,7 +31,7 @@ class Entity {
   static create( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL,
-      metod: 'POST';
+      metod: 'POST',
       responseType: 'json',
       data: Object.assign({ _method: 'PUT' }, data ),
       callback: ( err, response ) => {
@@ -48,7 +48,7 @@ class Entity {
   static get( id = '', data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL,
-      metod: 'GET';
+      metod: 'GET',
       responseType: 'json',
       data: Object.assign({ id: id }, data ),
       callback: ( err, response ) => {
@@ -65,7 +65,7 @@ class Entity {
   static remove( id = '', data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL,
-      metod: 'POST';
+      metod: 'POST',
       responseType: 'json',
       data: Object.assign({ _method: 'DELETE', id: id }, data ),
       callback: ( err, response ) => {
