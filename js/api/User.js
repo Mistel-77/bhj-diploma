@@ -28,9 +28,7 @@ class User {
   static current() {
     if (localStorage.user) {
       return JSON.parse(localStorage.user);
-    } else {
-      return undefined;
-    }
+    } 
   }
 
   /**
@@ -40,11 +38,11 @@ class User {
   static fetch( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL + '/current',
-      metod: 'GET',
+      method: 'GET',
       responseType: 'json',
       data: data,
       callback: ( err, response ) => {
-        if (response.success === 'false') {
+        if (!response.success) {
           User.unsetCurrent(response.user);
         } else {
           User.setCurrent(response.user);
@@ -63,11 +61,11 @@ class User {
   static login( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL + '/login',
-      metod: 'POST',
+      method: 'POST',
       responseType: 'json',
       data: data,
       callback: ( err, response ) => {
-        if (response.success === 'true') {
+        if (response.success) {
           User.setCurrent(response.user);
         }
         callback( err, response );
@@ -84,11 +82,11 @@ class User {
   static register( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL + '/register',
-      metod: 'POST',
+      method: 'POST',
       responseType: 'json',
       data: data,
       callback: ( err, response ) => {
-        if (response.success === 'true') {
+        if (response.success) {
           User.setCurrent(response.user);
         }
         callback( err, response );
@@ -103,11 +101,11 @@ class User {
   static logout( data, callback = f => f ) {
     let xhr = createRequest({
       url: this.HOST + this.URL + '/logout',
-      metod: 'POST',
+      method: 'POST',
       responseType: 'json',
       data: data,
       callback: ( err, response ) => {
-        if (response.success === 'true') {
+        if (response.success) {
           User.unsetCurrent(response.user);
         }
         callback( err, response );

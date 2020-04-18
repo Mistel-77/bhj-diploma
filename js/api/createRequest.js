@@ -3,9 +3,12 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
-    const xhr = new XMLHttpRequest();
-    const url = options.url;
-    const formData = new FormData;
+    let xhr = new XMLHttpRequest();
+    let url = options.url;
+    let formData = new FormData;
+
+    xhr.responseType = 'json';
+    xhr.withCredentials = true;
     
     if (options.method === 'GET') {
         url = url + '?';

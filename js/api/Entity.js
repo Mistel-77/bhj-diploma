@@ -16,10 +16,7 @@ class Entity {
       metod: 'GET',
       responseType: 'json',
       data: data,
-      callback: ( err, response ) => {
-        console.log( err ); // null
-        console.log( response ); // ответ
-      }
+      callback
     });
   }
 
@@ -34,10 +31,7 @@ class Entity {
       metod: 'POST',
       responseType: 'json',
       data: Object.assign({ _method: 'PUT' }, data ),
-      callback: ( err, response ) => {
-        console.log( err ); // null
-        console.log( response ); // ответ
-      }
+      callback
     });
   }
 
@@ -51,10 +45,7 @@ class Entity {
       metod: 'GET',
       responseType: 'json',
       data: Object.assign({ id: id }, data ),
-      callback: ( err, response ) => {
-        console.log( err ); // null
-        console.log( response ); // ответ
-      }
+      callback
     });
   }
 
@@ -68,10 +59,7 @@ class Entity {
       metod: 'POST',
       responseType: 'json',
       data: Object.assign({ _method: 'DELETE', id: id }, data ),
-      callback: ( err, response ) => {
-        console.log( err ); // null
-        console.log( response ); // ответ
-      }
+      callback
     });
   }
 }
