@@ -14,7 +14,7 @@ class Modal {
    * */
   constructor( element ) {
     if(!element) {
-      alert('Ошибка!');
+      throw new Error("Ошибка");
     } else {
       this.element = element;
       this.registerEvents();
@@ -29,9 +29,7 @@ class Modal {
   registerEvents() {
     const closeModal = Array.from(this.element.querySelectorAll('[data-dismiss = "modal"]'));
     for (let i of closeModal) {
-      i.addEventListener('click', function (e) {
-        this.onClose(e);
-      })
+      i.addEventListener('click', (e) => {this.onClose(e);})
     }
   }
 

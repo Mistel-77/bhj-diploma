@@ -14,7 +14,7 @@ class AsyncForm {
    * */
   constructor( element ) {
     if(!element) {
-      alert('Ошибка!');
+      throw new Error("Ошибка");
     } else {
       this.element = element;
       this.registerEvents();
@@ -66,6 +66,6 @@ class AsyncForm {
     info.method = this.element.method;
     info.data = this.getData();
 
-    onsubmit(info);
+    this.onSubmit(info);
   }
 }
