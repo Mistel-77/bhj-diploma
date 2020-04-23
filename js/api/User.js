@@ -36,7 +36,7 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch( data, callback = f => f ) {
-    let xhr = createRequest({
+    return createRequest({
       url: this.HOST + this.URL + '/current',
       method: 'GET',
       responseType: 'json',
@@ -59,7 +59,7 @@ class User {
    * User.setCurrent.
    * */
   static login( data, callback = f => f ) {
-    let xhr = createRequest({
+    return createRequest({
       url: this.HOST + this.URL + '/login',
       method: 'POST',
       responseType: 'json',
@@ -80,7 +80,7 @@ class User {
    * User.setCurrent.
    * */
   static register( data, callback = f => f ) {
-    let xhr = createRequest({
+    return createRequest({
       url: this.HOST + this.URL + '/register',
       method: 'POST',
       responseType: 'json',
@@ -99,7 +99,7 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout( data, callback = f => f ) {
-    let xhr = createRequest({
+    return createRequest({
       url: this.HOST + this.URL + '/logout',
       method: 'POST',
       responseType: 'json',

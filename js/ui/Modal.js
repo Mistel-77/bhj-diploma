@@ -15,10 +15,10 @@ class Modal {
   constructor( element ) {
     if(!element) {
       throw new Error("Ошибка");
-    } else {
-      this.element = element;
-      this.registerEvents();
-    }
+    }  
+    this.element = element;
+    this.registerEvents();
+    
   }
 
   /**
@@ -47,9 +47,7 @@ class Modal {
   unregisterEvents() {
     const closeModal = Array.from(this.element.querySelectorsAll('[data-dismiss = "modal"]'));
     for (let i of closeModal) {
-      i.removeEventListener('click', function(e) {
-        this.onClose();
-      });
+      i.removeEventListener('click', (e) => {this.onClose();});
     }
   }
   /**

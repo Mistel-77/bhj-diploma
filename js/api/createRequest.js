@@ -18,7 +18,7 @@ const createRequest = (options = {}) => {
           
     } else {
         for(let key in options.data) {
-            formData.append(key, option.data[key]);
+            formData.append(key, options.data[key]);
         }
     }
 
@@ -36,7 +36,7 @@ const createRequest = (options = {}) => {
         options.callback(e);
     }
 
-    xhr.addEventListener('readystatechange', function() {
+    xhr.addEventListener('readystatechange', () => {
         if (xhr.readyState === 4 && this.status == 200) {
             options.callback(null, xhr.response);
         }

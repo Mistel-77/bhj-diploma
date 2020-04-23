@@ -15,9 +15,11 @@ class RegisterForm extends AsyncForm {
     User.register(options.data, ( err, response ) => {
     
       if (response.success) {
-        this.reset();
+        this.element.reset();
         App.setState('user-logged');
         App.getModal('register').close();
+      } else {
+        console.log(err);
       }
     });
   }
