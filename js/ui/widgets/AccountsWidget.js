@@ -58,7 +58,7 @@ class AccountsWidget {
   update() {
     let user = User.current();
     if (user) {
-      Account.list(user.data, ( err, response ) => {
+      Account.list(user, ( err, response ) => {
         if (response.success) {
           this.clear();
           for (let i = 0; i < response.data.length; i++) {
@@ -89,9 +89,11 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    let activeAccount = document.querySelector('.active.account');
-    activeAccount.classList.remove(active);
-    element.classList.add(active);
+    let activeAccount = this.element.querySelector('.active.account');
+    if (activeAccount) {
+      activeAccount.classList.remove(active);
+    }
+    element.classList.add('active');
     App.showPage( 'transactions', { account_id: element.dataset.id });
   }
 
@@ -101,7 +103,7 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML( item ) {
-    return `<li class="active account" data-id="${item.id}">
+    return `<li class="account" data-id="${item.id}">
               <a href=''>
                 <span>${item.name}</span> /
                 <span>${item.sum} $</span>
