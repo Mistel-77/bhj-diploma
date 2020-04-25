@@ -31,7 +31,7 @@ class AccountsWidget {
    * */
   registerEvents() {
     let createAccount = document.querySelector('.create-account');
-    createAccount.addEventListener('click', event() => {
+    createAccount.addEventListener('click', (event) => {
       event.preventDefault();
       App.getModal('createAccount').open();
     });
@@ -58,7 +58,7 @@ class AccountsWidget {
   update() {
     let user = User.current();
     if (user) {
-      Account.list()(user.data, ( err, response ) => {
+      Account.list(user.data, ( err, response ) => {
         if (response.success) {
           this.clear();
           for (let i = 0; i < response.data.length; i++) {

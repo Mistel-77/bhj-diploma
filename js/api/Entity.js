@@ -13,7 +13,7 @@ class Entity {
   static list( data, callback = f => f ) {
     return createRequest({
       url: this.HOST + this.URL,
-      metod: 'GET',
+      method: 'GET',
       responseType: 'json',
       data: data,
       callback
@@ -28,7 +28,7 @@ class Entity {
   static create( data, callback = f => f ) {
     return createRequest({
       url: this.HOST + this.URL,
-      metod: 'POST',
+      method: 'POST',
       responseType: 'json',
       data: Object.assign( data, { _method: 'PUT' } ),
       callback
@@ -42,7 +42,7 @@ class Entity {
   static get( id = '', data, callback = f => f ) {
     return createRequest({
       url: this.HOST + this.URL,
-      metod: 'GET',
+      method: 'GET',
       responseType: 'json',
       data: Object.assign(data, { id: id } ),
       callback
@@ -56,7 +56,7 @@ class Entity {
   static remove( id = '', data, callback = f => f ) {
     return createRequest({
       url: this.HOST + this.URL,
-      metod: 'POST',
+      method: 'POST',
       responseType: 'json',
       data: Object.assign( data, { _method: 'DELETE'}, {id: id } ),
       callback
