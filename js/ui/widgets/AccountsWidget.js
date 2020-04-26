@@ -40,7 +40,7 @@ class AccountsWidget {
     for (let i = 0; i < lookAccount.length; i++) {
       lookAccount[i].addEventListener('click', (event) => {
         event.preventDefault();
-        this.onSelectAccount(event);
+        this.onSelectAccount(event.target);
       })
     }
   }
