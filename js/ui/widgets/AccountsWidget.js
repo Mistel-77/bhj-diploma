@@ -30,7 +30,18 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    let createAccount = document.querySelector('.create-account');
+    this.element.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      if (event.target.closest('.create-account')) {
+        App.getModal('createAccount').open();
+      }
+
+      if (event.target.closest('.account')) {
+        this.onSelectAccount(event.target.closest('.account'));
+      }
+    });
+    /*let createAccount = document.querySelector('.create-account');
     createAccount.addEventListener('click', (event) => {
       event.preventDefault();
       App.getModal('createAccount').open();
@@ -42,7 +53,7 @@ class AccountsWidget {
         event.preventDefault();
         this.onSelectAccount(event.target);
       })
-    }
+    }*/
   }
 
   /**
@@ -91,7 +102,7 @@ class AccountsWidget {
   onSelectAccount( element ) {
     let activeAccount = this.element.querySelector('.active.account');
     if (activeAccount) {
-      activeAccount.classList.remove(active);
+      activeAccount.classList.remove('active');
     }
     element.classList.add('active');
     App.showPage( 'transactions', { account_id: element.dataset.id });

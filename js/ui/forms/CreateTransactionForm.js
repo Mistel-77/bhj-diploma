@@ -23,8 +23,13 @@ class CreateTransactionForm extends AsyncForm {
     Account.list(User.current(), (err, response) => {
       accountsSelect.innerHTML = '';
 
-      for (let i = 0; i < response.data.length; i++) {
-        accountsSelect.insertAdjacentHTML('beforeend', `<option value="${response.data[i].id}">${response.data[i].name}</option>`);
+      if(response.data) {
+        response.data.forEach(key => {
+          accountsSelect.insertAdjacentHTML('beforeend', `<option value="${key.id}">${key.name}</option>`);
+        })
+        //for (let i = 0; i < response.data.length; i++) {
+       //   accountsSelect.insertAdjacentHTML('beforeend', `<option value="${response.data[i].id}">${response.data[i].name}</option>`);
+       // }
       }
 
     });
