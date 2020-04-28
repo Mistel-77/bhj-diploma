@@ -64,9 +64,9 @@ class TransactionsPage {
       return
     }
 
-    Account.remove(this.lastOptions.account_id, {}, (err, response) => {
+      Account.remove(this.lastOptions.account_id, {}, (err, response) => {
       if (response.success) {
-        //this.clear();
+        this.clear();
         App.update();
       }
     });
@@ -83,9 +83,8 @@ class TransactionsPage {
       return;
     }
 
-    Transaction.remove(id, {}, (err, response) => {
+      Transaction.remove(id, {}, (err, response) => {
       if (response.success) {
-        //this.clear();
         App.update();
       }
     });
@@ -105,13 +104,14 @@ class TransactionsPage {
     this.lastOptions = options;
 
     Account.get(options.account_id, {}, (err, response) => {
-      if (response.success) {
+      if (response) {
         this.renderTitle(response.data.name);
       }
     });
 
-    Transaction.list(options.account_id, {}, (err, response) => {
-      TransactionsPage.renderTransactions(response.data);
+    Transaction.list(options, (err, response) => {
+      this.renderTransactions(response.data);
+      console.log(response.data);
     });
   }
 
@@ -121,7 +121,7 @@ class TransactionsPage {
    * Устанавливает заголовок: «Название счёта»
    * */
   clear() {
-    this.renderTransactions();
+    this.renderTransactions([]);
     this.renderTitle('Название счёта');
     this.lastOptions = '';
   }
@@ -130,7 +130,7 @@ class TransactionsPage {
    * Устанавливает заголовок в элемент .content-title
    * */
   renderTitle( name ) {
-    document.querySelector('.content-title').textContent = name;
+    this.element.querySelector('.content-title').textContent = name;
   }
 
   /**
@@ -177,7 +177,7 @@ class TransactionsPage {
           <div class="transaction__info">
               <h4 class="transaction__title">${item.name}</h4>
               <!-- дата -->
-              <div class="transaction__date">${this.formatDate(item.date)}</div>
+              <div class="transaction__date">${this.formatDate(item.created_at)}</div>
           </div>
         </div>
         <div class="col-md-3">
